@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Booking;
 use App\Entity\Client;
 use App\Entity\Service;
 use App\Entity\User;
@@ -55,7 +56,8 @@ class AppFixtures extends Fixture
         ;
         $manager->persist($user2);
         #User gen et Client gen
-        for($i=0;$i <=100;$i++){
+        for($i=0;$i <=100;$i++)
+        {
             $userGen = new User();
             $userGen
                 ->setEmail($faker->email)
@@ -65,6 +67,7 @@ class AppFixtures extends Fixture
                 ->setCity($faker->city)
                 ->setService($arrayEntityService[random_int(0,3)])
             ;
+            array_push($arrayEntityUser,$userGen);
             $manager->persist($userGen);
             $client = new Client();
             $client
@@ -73,8 +76,25 @@ class AppFixtures extends Fixture
                 ->setEmail($faker->email)
                 ->setPhone($faker->phoneNumber)
                 ;
+            array_push($arrayEntityClient,$client);
             $manager->persist($client);
         }
+        for($i=0;$i <=100;$i++)
+        {
+
+            $booking = new Booking();
+            $startDate = $faker->dateTimeBetween($startDate = '-1 years', $endDate = '+1 years', $timezone = "Europe/Paris");
+            $endDate  = $faker->dateTimeBetween($startDate->format('Y-m-d H:i:s').' +1 hours', $startDate->format('Y-m-d H:i:s').' +1 hours');
+            $booking
+                ->setClient($arrayEntityClient[random_int(0,sizeof($arrayEntityClient)-1)])
+                ->setPro($arrayEntityUser[random_int(0,sizeof($arrayEntityUser)-1)])
+                ->setStartDate($startDate)
+                ->setEndDate($endDate)
+            ;
+            $manager->persist($booking);
+        }
+
+
         $manager->flush();
     }
 }
