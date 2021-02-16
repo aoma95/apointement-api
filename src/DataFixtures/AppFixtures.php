@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Client;
 use App\Entity\Service;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -18,18 +19,19 @@ class AppFixtures extends Fixture
     }
     public function load(ObjectManager $manager)
     {
+        $faker = Factory::create('fr_FR');
+        #Array Entity
         $arrayEntityService =[];
-        $nameServie = ["Déppannage","Livraison","Plombier","Admin"];
-        foreach ($nameServie as $value){
+        $arrayEntityClient = [];
+        $arrayEntityUser = [];
+        $arrayNameService = ["Déppannage","Livraison","Plombier","Admin"];
+        foreach ($arrayNameService as $nameservice){
             $service= new Service();
-            $service->setName($value);
+            $service->setName($nameservice);
             array_push($arrayEntityService,$service);
             $manager->persist($service);
-//            echo "${$arrayEntityService[1]}";
         }
-
-
-        $faker = Factory::create('fr_FR');
+        #User admin
         $user = new User();
         $user
             ->setEmail("admin@admin.fr")
@@ -41,16 +43,38 @@ class AppFixtures extends Fixture
             ->setService($arrayEntityService[3])
         ;
         $manager->persist($user);
+        #User test
         $user2 = new User();
-        $user2->setEmail("user@user.fr")
+        $user2
+            ->setEmail("user@user.fr")
             ->setPassword($this->passwordEncoder->encodePassword($user2, "user"))
             ->setFirstname($faker->firstName)
             ->setLastname($faker->lastName)
             ->setCity($faker->city)
             ->setService($arrayEntityService[1])
         ;
-
         $manager->persist($user2);
+        #User gen et Client gen
+        for($i=0;$i <=100;$i++){
+            $userGen = new User();
+            $userGen
+                ->setEmail($faker->email)
+                ->setPassword($this->passwordEncoder->encodePassword($userGen, "user"))
+                ->setFirstname($faker->firstName)
+                ->setLastname($faker->lastName)
+                ->setCity($faker->city)
+                ->setService($arrayEntityService[random_int(0,3)])
+            ;
+            $manager->persist($userGen);
+            $client = new Client();
+            $client
+                ->setFirstname($faker->firstName)
+                ->setLastname($faker->lastName)
+                ->setEmail($faker->email)
+                ->setPhone($faker->phoneNumber)
+                ;
+            $manager->persist($client);
+        }
         $manager->flush();
     }
 }
