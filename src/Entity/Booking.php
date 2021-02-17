@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BookingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=BookingRepository::class)
@@ -19,23 +20,27 @@ class Booking
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"booking"})
      */
-    private $start_date;
+    private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"booking"})
      */
-    private $end_date;
+    private $endDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="booking")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="booking", fetch="EAGER")
+     * @Groups({"booking"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $pro;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="booking")
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="booking", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"booking"})
      */
     private $client;
 
@@ -46,24 +51,24 @@ class Booking
 
     public function getStartDate(): ?\DateTimeInterface
     {
-        return $this->start_date;
+        return $this->startDate;
     }
 
     public function setStartDate(\DateTimeInterface $start_date): self
     {
-        $this->start_date = $start_date;
+        $this->startDate = $start_date;
 
         return $this;
     }
 
     public function getEndDate(): ?\DateTimeInterface
     {
-        return $this->end_date;
+        return $this->endDate;
     }
 
     public function setEndDate(\DateTimeInterface $end_date): self
     {
-        $this->end_date = $end_date;
+        $this->endDate = $end_date;
 
         return $this;
     }
@@ -91,4 +96,5 @@ class Booking
 
         return $this;
     }
+
 }
