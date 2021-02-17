@@ -6,6 +6,7 @@ use App\Entity\Booking;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
  * @method Booking|null find($id, $lockMode = null, $lockVersion = null)
  * @method Booking|null findOneBy(array $criteria, array $orderBy = null)
@@ -34,7 +35,7 @@ class BookingRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Booking
