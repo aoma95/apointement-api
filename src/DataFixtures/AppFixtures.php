@@ -25,10 +25,47 @@ class AppFixtures extends Fixture
         $arrayEntityService =[];
         $arrayEntityClient = [];
         $arrayEntityUser = [];
-        $arrayNameService = ["Déppannage","Livraison","Plombier","Admin"];
+        $arrayNameService = [
+            "Admin",
+            "Déppannage",
+            "Livraison",
+            "Plombier",
+            "Electriciens",
+            "Accompagnateur de tourisme équestre",
+            "Administrateur de bases de données",
+            "Administrateur de biens immobiliers",
+            "Agent de développement local",
+            "Aide-comptable",
+            "Analyste de crédit",
+            "Animateur de club de vacances",
+            "Approvisionneur",
+            "Arboriculteur",
+            "Gestionnaire Copropriété",
+            "Ingénieur Aéronautique",
+            "Ingénieur d'exploitation gaz",
+            "Ingénieur environnement",
+            "Ingénieur production",
+            "Gestionnaire paie et administration du personnel",
+            "Expert bilan carbone",
+            "Eleveur canin ou félin",
+            "Documentaliste",
+            "Directeur marketing",
+            "Directeur de zoo",
+            "Conseiller en insertion professionnelle",
+            "Chef de projet Web",
+            "Réalisateur",
+            "Rédacteur",
+            "Sommelier",
+            "Souscripteur en assurances",
+            "Urbaniste"
+            ];
         foreach ($arrayNameService as $nameservice){
             $service= new Service();
-            $service->setName($nameservice);
+            $service
+                ->setName($nameservice)
+                ->setDescribes($faker->text("100"))
+            ;
+
             array_push($arrayEntityService,$service);
             $manager->persist($service);
         }
@@ -41,7 +78,7 @@ class AppFixtures extends Fixture
             ->setFirstname($faker->firstName)
             ->setLastname($faker->lastName)
             ->setCity($faker->city)
-            ->setService($arrayEntityService[3])
+            ->setService($arrayEntityService[0])
         ;
         $manager->persist($user);
         #User test
@@ -65,7 +102,7 @@ class AppFixtures extends Fixture
                 ->setFirstname($faker->firstName)
                 ->setLastname($faker->lastName)
                 ->setCity($faker->city)
-                ->setService($arrayEntityService[random_int(0,3)])
+                ->setService($arrayEntityService[random_int(1,sizeof($arrayEntityService)-1)])
             ;
             array_push($arrayEntityUser,$userGen);
             $manager->persist($userGen);
@@ -93,7 +130,6 @@ class AppFixtures extends Fixture
             ;
             $manager->persist($booking);
         }
-
 
         $manager->flush();
     }
