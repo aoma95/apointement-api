@@ -53,7 +53,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      * @Groups({"booking"})
      */
     private $service;

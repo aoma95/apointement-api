@@ -28,7 +28,6 @@ class AppFixtures extends Fixture
         $arrayEntityUser = [];
         $arrayEntityLocation =[];
         $arrayNameService = [
-            "Admin",
             "Déppannage",
             "Livraison",
             "Plombier",
@@ -85,7 +84,6 @@ class AppFixtures extends Fixture
             ->setPassword($this->passwordEncoder->encodePassword($user, "admin"))
             ->setFirstname($faker->firstName)
             ->setLastname($faker->lastName)
-            ->setService($arrayEntityService[0])
         ;
         $manager->persist($user);
         #User test
@@ -109,7 +107,7 @@ class AppFixtures extends Fixture
                 ->setFirstname($faker->firstName)
                 ->setLastname($faker->lastName)
                 ->setCity($arrayEntityLocation[random_int(0,sizeof($arrayEntityLocation)-1)])
-                ->setService($arrayEntityService[random_int(1,sizeof($arrayEntityService)-1)])
+                ->setService($arrayEntityService[random_int(0,sizeof($arrayEntityService)-1)])
             ;
             array_push($arrayEntityUser,$userGen);
             $manager->persist($userGen);
