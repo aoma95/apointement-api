@@ -22,7 +22,7 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/api/service/user/{id}", name="all_service_user" , methods="get")
+     * @Route("/api/service/{id}/user", name="all_service_user" , methods="get")
      * @param ServiceRepository $serviceRepository
      * @param int $id
      * @return JsonResponse

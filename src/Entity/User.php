@@ -52,12 +52,6 @@ class User implements UserInterface
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"booking"})
-     */
-    private $city;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"booking"})
@@ -73,6 +67,12 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="pro")
      */
     private $booking;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Location::class, inversedBy="users")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $city;
 
     public function __construct()
     {
@@ -185,18 +185,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
     public function getService(): ?Service
     {
         return $this->service;
@@ -259,6 +247,18 @@ class User implements UserInterface
                 $booking->setPro(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?Location
+    {
+        return $this->city;
+    }
+
+    public function setCity(?Location $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

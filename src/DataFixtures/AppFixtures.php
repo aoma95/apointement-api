@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Booking;
 use App\Entity\Client;
+use App\Entity\Location;
 use App\Entity\Service;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -25,6 +26,7 @@ class AppFixtures extends Fixture
         $arrayEntityService =[];
         $arrayEntityClient = [];
         $arrayEntityUser = [];
+        $arrayEntityLocation =[];
         $arrayNameService = [
             "Admin",
             "Déppannage",
@@ -59,6 +61,12 @@ class AppFixtures extends Fixture
             "Souscripteur en assurances",
             "Urbaniste"
             ];
+        for($i=0;$i <=100;$i++)
+        {
+            $location = new Location();
+            array_push($arrayEntityLocation,$location->setCityName($faker->unique()->city));
+            $manager->persist($location);
+        }
         foreach ($arrayNameService as $nameservice){
             $service= new Service();
             $service
@@ -77,7 +85,6 @@ class AppFixtures extends Fixture
             ->setPassword($this->passwordEncoder->encodePassword($user, "admin"))
             ->setFirstname($faker->firstName)
             ->setLastname($faker->lastName)
-            ->setCity($faker->city)
             ->setService($arrayEntityService[0])
         ;
         $manager->persist($user);
@@ -88,7 +95,7 @@ class AppFixtures extends Fixture
             ->setPassword($this->passwordEncoder->encodePassword($user2, "user"))
             ->setFirstname($faker->firstName)
             ->setLastname($faker->lastName)
-            ->setCity($faker->city)
+            ->setCity($arrayEntityLocation[random_int(0,sizeof($arrayEntityLocation)-1)])
             ->setService($arrayEntityService[1])
         ;
         $manager->persist($user2);
@@ -101,7 +108,7 @@ class AppFixtures extends Fixture
                 ->setPassword($this->passwordEncoder->encodePassword($userGen, "user"))
                 ->setFirstname($faker->firstName)
                 ->setLastname($faker->lastName)
-                ->setCity($faker->city)
+                ->setCity($arrayEntityLocation[random_int(0,sizeof($arrayEntityLocation)-1)])
                 ->setService($arrayEntityService[random_int(1,sizeof($arrayEntityService)-1)])
             ;
             array_push($arrayEntityUser,$userGen);
