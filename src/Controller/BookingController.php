@@ -18,6 +18,6 @@ class BookingController extends AbstractController
      */
     public function index(BookingRepository $bookingsRepository): JsonResponse
     {
-        return $this->json($booking = $bookingsRepository->findAll(), 200, [],["groups" => "booking"]);
+        return $this->json($bookingsRepository->findAll(), 200, [],["groups" => "booking"]);
     }
 }
