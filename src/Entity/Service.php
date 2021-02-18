@@ -35,6 +35,7 @@ class Service
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="service")
+     * @Groups({"user"})
      */
     private $users;
 

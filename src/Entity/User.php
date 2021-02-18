@@ -18,13 +18,13 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"booking"})
+     * @Groups({"booking","user"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Groups({"booking"})
+     * @Groups({"booking","user"})
      */
     private $email;
 
