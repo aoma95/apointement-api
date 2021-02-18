@@ -31,4 +31,14 @@ class ServiceController extends AbstractController
     {
         return $this->json($serviceRepository->find($id)->getUsers(), 200, [],["groups" => "user"]);
     }
+    /**
+     * @Route("/api/service/{id}/location", name="all_service_location" , methods="get")
+     * @param ServiceRepository $serviceRepository
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function findLocationByService(ServiceRepository $serviceRepository, int $id): JsonResponse
+    {
+        return $this->json($serviceRepository->find($id)->getLocation(), 200, [],["groups" => "location"]);
+    }
 }

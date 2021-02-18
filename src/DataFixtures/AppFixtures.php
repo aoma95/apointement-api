@@ -94,7 +94,8 @@ class AppFixtures extends Fixture
             ->setFirstname($faker->firstName)
             ->setLastname($faker->lastName)
             ->setCity($arrayEntityLocation[random_int(0,sizeof($arrayEntityLocation)-1)])
-            ->setService($arrayEntityService[1])
+            ->setService($arrayEntityService[random_int(0,sizeof($arrayEntityService)-1)])
+            ->getService()->addLocation($user2->getCity())
         ;
         $manager->persist($user2);
         #User gen et Client gen
@@ -108,9 +109,11 @@ class AppFixtures extends Fixture
                 ->setLastname($faker->lastName)
                 ->setCity($arrayEntityLocation[random_int(0,sizeof($arrayEntityLocation)-1)])
                 ->setService($arrayEntityService[random_int(0,sizeof($arrayEntityService)-1)])
+                ->getService()->addLocation($userGen->getCity())
             ;
             array_push($arrayEntityUser,$userGen);
             $manager->persist($userGen);
+
             $client = new Client();
             $client
                 ->setFirstname($faker->firstName)

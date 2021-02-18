@@ -39,9 +39,15 @@ class Service
      */
     private $users;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Location::class, inversedBy="services")
+     */
+    private $location;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->location = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -99,6 +105,30 @@ class Service
                 $user->setService(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocation(): Collection
+    {
+        return $this->location;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->location->contains($location)) {
+            $this->location[] = $location;
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        $this->location->removeElement($location);
 
         return $this;
     }
