@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Location;
 use App\Entity\Service;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -47,4 +50,17 @@ class ServiceRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findUserByLocation(Location $idLocation,Service $idService){
+        return $this->createQueryBuilder("s")
+            ->select("u")
+            ->innerJoin(User::class,"u",Join::WITH,"s.id = u.service")
+            ->innerJoin(Location::class,"l",Join::WITH,"l.id = u.city")
+            ->where("u.city = :idLocation")
+            ->setParameter("idLocation", $idLocation)
+            ->andWhere("u.service = :idService")
+            ->setParameter("idService", $idService)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
