@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Booking;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -48,4 +49,14 @@ class BookingRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByUser(User $user)
+    {
+        return $this->createQueryBuilder("b")
+            ->where("b.pro = :user")
+            ->setParameter("user",$user)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

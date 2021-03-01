@@ -54,9 +54,6 @@ class ServiceController extends AbstractController
      */
     public function findUserByLocationByService(ServiceRepository $serviceRepository, Service $idService, Location $idLocation): JsonResponse
     {
-//        dd($serviceRepository->findUserByLocation($idLocation->getId(),$idService->getId()));
-//        dd($idLocation);
-//        $this->json($serviceRepository->find()->getUsers());
         return $this->json($serviceRepository->findUserByLocation($idLocation,$idService), 200, [],["groups" => "user"]);
     }
 }

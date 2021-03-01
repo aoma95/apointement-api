@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\User;
 use App\Repository\BookingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,5 +20,16 @@ class BookingController extends AbstractController
     public function index(BookingRepository $bookingsRepository): JsonResponse
     {
         return $this->json($bookingsRepository->findAll(), 200, [],["groups" => "booking"]);
+    }
+
+    /**
+     * @Route("/api/booking/{user}", name="booking", methods="get")
+     * @param BookingRepository $bookingsRepository
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function bookingUser(BookingRepository $bookingsRepository, User $user): JsonResponse
+    {
+        return $this->json($bookingsRepository->findByUser($user), 200, [],["groups" => "booking"]);
     }
 }
