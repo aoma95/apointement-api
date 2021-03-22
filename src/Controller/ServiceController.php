@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ServiceController extends AbstractController
 {
     /**
-     * @Route("/api/service", name="service")
+     * @Route("/api/service", name="service", methods={"get"})
      * @param ServiceRepository $serviceRepository
      * @return JsonResponse
      */
@@ -55,5 +55,23 @@ class ServiceController extends AbstractController
     public function findUserByLocationByService(ServiceRepository $serviceRepository, Service $idService, Location $idLocation): JsonResponse
     {
         return $this->json($serviceRepository->findUserByLocation($idLocation,$idService), 200, [],["groups" => "user"]);
+    }
+
+    /**
+     * @Route("/api/service", name="add_service" , methods={"post"})
+     * @param Request $request
+     * @param Service $service
+     * @return JsonResponse
+     */
+    public function addService(Request $request): JsonResponse
+    {
+        $service = new Service();
+        $service->setName($request->request->get('name'));
+        $service->setDescribes($request->request->get('describes'));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($service);
+        $em->flush();
+
+        return $this->json(['message'=>'add',], 200);
     }
 }
