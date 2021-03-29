@@ -48,4 +48,4 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
     - { path: ˆ/authentication_token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ˆ/, roles: IS_AUTHENTICATED_FULLY }
+    #- { path: ˆ/, roles: IS_AUTHENTICATED_FULLY }

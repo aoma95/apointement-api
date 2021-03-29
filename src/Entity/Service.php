@@ -22,7 +22,7 @@ class Service
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Groups({"booking","service"})
      */
     private $name;

@@ -60,18 +60,51 @@ class ServiceController extends AbstractController
     /**
      * @Route("/api/service", name="add_service" , methods={"post"})
      * @param Request $request
-     * @param Service $service
      * @return JsonResponse
      */
     public function addService(Request $request): JsonResponse
     {
         $service = new Service();
-        $service->setName($request->request->get('name'));
-        $service->setDescribes($request->request->get('describes'));
+        $parameters = json_decode($request->getContent(), true);
+        $service->setName($parameters["name"]);
+        $service->setDescribes($parameters["describes"]);
         $em = $this->getDoctrine()->getManager();
         $em->persist($service);
         $em->flush();
 
-        return $this->json(['message'=>'add',], 200);
+        return $this->json(['message'=>'Add service',], 200);
+    }
+
+    /**
+     * @Route("/api/service/{idService}", name="update_service" , methods={"put"})
+     * @param Service $idService
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateService(Service $idService,Request $request): JsonResponse
+    {
+
+        $parameters = json_decode($request->getContent(), true);
+        $idService->setName($parameters["name"]);
+        $idService->setDescribes($parameters["describes"]);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($idService);
+        $em->flush();
+
+        return $this->json(['message'=>'Update service',], 200);
+    }
+
+    /**
+     * @Route("/api/service/{idService}", name="update_service" , methods={"DELETE"})
+     * @param Service $idService
+     * @return JsonResponse
+     */
+    public function deleteService(Service $idService): JsonResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($idService);
+        $em->flush();
+
+        return $this->json(['message'=>'Delete service',], 200);
     }
 }
