@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BookingController extends AbstractController
 {
     /**
-     * @Route("/api/booking", name="booking", methods="get")
+     * @Route("/api/booking", name="booking", methods="GET")
      * @param BookingRepository $bookingsRepository
      * @return JsonResponse
      */
@@ -23,7 +23,7 @@ class BookingController extends AbstractController
     }
 
     /**
-     * @Route("/api/booking/{user}", name="booking", methods="get")
+     * @Route("/api/booking/{user}", name="booking", methods="GET")
      * @param BookingRepository $bookingsRepository
      * @param User $user
      * @return JsonResponse

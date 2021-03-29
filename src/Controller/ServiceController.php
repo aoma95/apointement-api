@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ServiceController extends AbstractController
 {
     /**
-     * @Route("/api/service", name="service", methods={"get"})
+     * @Route("/api/service", name="service", methods={"GET"})
      * @param ServiceRepository $serviceRepository
      * @return JsonResponse
      */
@@ -24,7 +24,7 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/api/service/{id}/user", name="all_service_user" , methods="get")
+     * @Route("/api/service/{id}/user", name="all_service_user" , methods="GET")
      * @param ServiceRepository $serviceRepository
      * @param int $id
      * @return JsonResponse
@@ -35,7 +35,7 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/api/service/{idService}/location", name="all_service_location" , methods="get")
+     * @Route("/api/service/{idService}/location", name="all_service_location" , methods="GET")
      * @param ServiceRepository $serviceRepository
      * @param Service $idService
      * @return JsonResponse
@@ -46,7 +46,7 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/api/service/{idService}/location/{idLocation}/user", name="all_service_location_user" , methods="get")
+     * @Route("/api/service/{idService}/location/{idLocation}/user", name="all_service_location_user" , methods="GET")
      * @param ServiceRepository $serviceRepository
      * @param Service $idService
      * @param Location $idLocation
@@ -58,7 +58,7 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/api/service", name="add_service" , methods={"post"})
+     * @Route("/api/service", name="add_service" , methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      */
@@ -76,7 +76,7 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/api/service/{idService}", name="update_service" , methods={"put"})
+     * @Route("/api/service/{idService}", name="update_service" , methods={"PUT"})
      * @param Service $idService
      * @param Request $request
      * @return JsonResponse
@@ -95,7 +95,7 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/api/service/{idService}", name="update_service" , methods={"DELETE"})
+     * @Route("/api/service/{idService}", name="delete_service" , methods={"DELETE"})
      * @param Service $idService
      * @return JsonResponse
      */
