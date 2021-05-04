@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LocationController extends AbstractController
 {
     /**
-     * @Route("/api/location", name="all_location", methods={"GET"})
+     * @Route("/api/admin/location", name="all_location", methods={"GET"})
      * @param LocationRepository $location
      * @return Response
      */
@@ -22,7 +22,7 @@ class LocationController extends AbstractController
     }
 
     /**
-     * @Route("/api/location/{location}", name="update_location", methods={"PUT"})
+     * @Route("/api/admin/location/{location}", name="update_location", methods={"PUT"})
      * @param Location $location
      * @param Request $request
      * @return Response
@@ -39,7 +39,7 @@ class LocationController extends AbstractController
     }
 
     /**
-     * @Route("/api/location/{location}", name="delete_location", methods={"DELETE"})
+     * @Route("/api/admin/location/{location}", name="delete_location", methods={"DELETE"})
      * @param Location $location
      * @param Request $request
      * @return Response
@@ -55,7 +55,7 @@ class LocationController extends AbstractController
     }
 
     /**
-     * @Route("/api/location", name="add_location", methods={"POST"})
+     * @Route("/api/admin/location", name="add_location", methods={"POST"})
      * @param Request $request
      * @return Response
      */

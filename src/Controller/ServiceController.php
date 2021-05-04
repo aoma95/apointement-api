@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Location;
 use App\Entity\Service;
 use App\Repository\ServiceRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,8 +59,9 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/api/service", name="add_service" , methods={"POST"})
+     * @Route("/api/admin/service", name="add_service" , methods={"POST"})
      * @param Request $request
+     * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
     public function addService(Request $request): JsonResponse
@@ -76,7 +78,7 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/api/service/{idService}", name="update_service" , methods={"PUT"})
+     * @Route("/api/admin/service/{idService}", name="update_service" , methods={"PUT"})
      * @param Service $idService
      * @param Request $request
      * @return JsonResponse
@@ -95,7 +97,7 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/api/service/{idService}", name="delete_service" , methods={"DELETE"})
+     * @Route("/api/admin/service/{idService}", name="delete_service" , methods={"DELETE"})
      * @param Service $idService
      * @return JsonResponse
      */

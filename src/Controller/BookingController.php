@@ -3,11 +3,15 @@
 namespace App\Controller;
 
 
+use App\Entity\Booking;
 use App\Entity\User;
 use App\Repository\BookingRepository;
+use App\Repository\ClientRepository;
 use Carbon\Carbon;
+use PhpParser\Node\Expr\New_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -32,8 +36,6 @@ class BookingController extends AbstractController
      */
     public function bookingUser(BookingRepository $bookingsRepository, User $user, $month = null): JsonResponse
     {
-
-        //return $this->json($bookingsRepository->findByUser($user), 200, [],["groups" => "booking"]);
         $meetings = $bookingsRepository->findByUser($user);
 
         $today = Carbon::now()->subDay();
@@ -89,5 +91,29 @@ class BookingController extends AbstractController
         }
 
         return $this->json($available, 200, []);
+    }
+
+    /**
+     * @Route("/api/booking", name="add_bookings", methods="POST")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function addBooking(Request $request): JsonResponse
+    {
+        $parameters = json_decode($request->getContent(), true);
+        $clientRepository = New ClientRepository();
+        $clientRepository
+        /**$booking = new Booking();
+        $parameters = json_decode($request->getContent(), true);
+        $booking->setClient($parameters["client"])
+            ->setPro($parameters["name"])
+            ->setStartDate($parameters["name"])
+            ->setEndDate($parameters["name"])
+        ;
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($booking);
+        $em->flush();
+         * */
+        return $this->json(['message'=>$parameters["client"]], 200);
     }
 }

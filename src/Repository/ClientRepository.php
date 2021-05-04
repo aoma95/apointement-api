@@ -47,4 +47,5 @@ class ClientRepository extends ServiceEntityRepository
         ;
     }
     */
+    #public function findByEmail($email)
 }
